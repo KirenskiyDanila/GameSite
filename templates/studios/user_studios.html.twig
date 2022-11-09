@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GameSite!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        {% for studio in studios %}
+            <div class="row border rounded border-dark p-2 mb-2">
+                <h1 class="display-6 fw-normal">{{ studio.name|e }}</h1>
+                <p class="lead fw-normal">{{ studio.description|e }}</p>
+                <div class="row mt-1">
+                </div>
+                <div class="col-sm-3 font-monospace">{{ studio.date|date }}</div>
+                <a href="{{ path('app_unsubscribe', {id: studio.id}) }}"><div class="btn btn-info btn-outline-danger text-white">Отписаться</div></a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

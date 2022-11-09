@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GameSite!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        {% for studio in studios %}
+            <div class="row border rounded border-dark p-2 mb-2">
+                <h1 class="display-6 fw-normal">{{ studio.name|e }}</h1>
+                <p class="lead fw-normal">{{ studio.description|e }}</p>
+                <div class="row mt-1">
+                    </div>
+                    <div class="col-sm-3 font-monospace">{{ studio.date|date }}</div>
+                {% if app.user not in studio.subscriber and app.user != null %}
+                    <a href="{{ path('app_subscribe', {id: studio.id}) }}"><div class="btn btn-light btn-outline-info">Подписаться</div></a>
+                {% endif %}
+                </div>
+        {% endfor %}
+
+        <div class="row mt-3">
+            {% for page in pages %}
+                <div class="m-2 col">
+                    <a href="{{ page|e }}" class="btn border {% if page == actual_page %}btn-info{% endif %}" role="button">{{ page|e }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ game.name }}!{% endblock %}
+
+{% block body %}
+
+    <div class="p-5 mb-4 bg-light rounded-3 flex-row d-flex">
+        <div class="py-5 col-8">
+            <h1 class="display-5 fw-bold">{{game.name|e}}</h1>
+            <p class="col-md-8 fs-4">{{ game.description|e }}</p>
+            <h6 class="display-9 fw-bold">Дата выхода - {{ game.releaseDate|date("Y-m-d") }}</h6>
+            <h6 class="display-9 fw-bold">Дата анонса - {{ game.announceDate|date("Y-m-d") }}</h6>
+            <h6 class="display-9 fw-bold">Студий-разработчик - {{ game.studio.name|e }}</h6>
+            <h6 class="display-9 fw-bold">Издатель - {{ game.publisher.name|e }}</h6>
+
+        </div>
+        <div class="py-5 col-4">
+            <img src="../../public/images/{{ game.photo|e }}" width="400" class="user-img mr-2" alt="Нет фото">
+        </div>
+    </div>
+    <div class="container mt-5">
+        <ul class="list-group">
+            <li class="list-group-item">Средняя цена: {{ game.averagePrice|e }} рублей</li>
+            {% for price in game.prices %}
+            <li class="list-group-item">{{ price.platform.name }}: {{ price.cost }} рублей (без учета скидки). Скидка в данный момент - {{ price.discount }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% if game.releaseDate != null and game.releaseDate <= currentDate  %}
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                <div class="card p-3">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') and flag == true %}
+                        {{ form_start(form) }}
+                        <div class="form-group">
+                            {{ form_row(form.text) }}
+                            {{ form_row(form.grade) }}
+                            {{ form_row(form.submit) }}
+                        </div>
+                        {{ form_end(form) }}
+                    {% endif %}
+                    {% for review in reviews %}
+                        <div class="row border rounded border-dark p-2 mt-3 m-2">
+                            <h1 class="display-6 fw-normal">{{ review.author.username|e }}</h1>
+                            <p class="lead fw-normal">{{ review.text|e }}</p>
+                            <div class="row mt-1">
+                                <div class="col-sm-9 font-monospace">Оценка:{{ review.grade|e }}/10
+                                    <i class="bi bi-card-text"></i>
+                                </div>
+                                <div class="col-sm-3 font-monospace">{{ review.date|date }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <a href="{{ path('app_game_reviews', {id: game.id, page: 1}) }}" class="text-reset text-decoration-none">
+                        <div class="btn btn-outline-info btn-light align-content-lg-center d-flex justify-content-center">
+                            Посмотреть все обзоры
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

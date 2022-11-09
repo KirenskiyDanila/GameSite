@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GameSite!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Регистрация</h1>
+
+        {{ form_start(registrationForm) }}
+        {{ form_widget(registrationForm.email) }}
+        {{ form_errors(registrationForm.email) }}
+        {{ form_widget(registrationForm.plainPassword) }}
+
+        <label for="registration_form_agreeTerms" class="mb-2 mt-2">Согласие на обработку персональных данных</label>
+        {{ form_widget(registrationForm.agreeTerms) }}
+        <br>
+        {{ form_widget(registrationForm.username) }}
+        <button type="submit" class="btn btn-outline-success mt-3 btn-info">Зарегистрироваться</button>
+    {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

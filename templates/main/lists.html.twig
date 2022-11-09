@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GameSite!{% endblock %}
+
+{% block body %}
+    <div class="container d-flex flex-row justify-content-center">
+        <a href="{{ path('app_platforms', {page: 1}) }}"><button class="btn btn-light m-2 btn-outline-secondary">Список игровых платформ</button></a>
+        <a href="{{ path('app_publishers', {page: 1}) }}"><button class="btn btn-light m-2 btn-outline-secondary">Список издательств</button></a>
+        <a href="{{ path('app_studios', {page: 1}) }}"><button class="btn btn-light m-2 btn-outline-secondary">Список студий</button></a>
+        <a href="{{ path('app_games', {page: 1}) }}"><button class="btn btn-light m-2 btn-outline-secondary">Список игр</button></a>
+    </div>
+{% endblock %}

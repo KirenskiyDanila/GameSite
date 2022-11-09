@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GameSite!{% endblock %}
+
+{% block body %}
+    <div class="container d-flex flex-column justify-content-around">
+        <a href="{{ path('month_report', {page: 1}) }}"><button class="btn btn-light m-2 btn-outline-secondary">Месячный отчет</button></a>
+        <a href="{{ path('year_report', {page: 1}) }}"><button class="btn btn-light m-2 btn-outline-secondary">Годовой отчет</button></a>
+        <a href="{{ path('AllTime_report', {page: 1}) }}"><button class="btn btn-light m-2 btn-outline-secondary">Отчет за все время</button></a>
+    </div>
+{% endblock %}
